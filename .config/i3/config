@@ -1,0 +1,333 @@
+# Left Alt
+set $mod Mod1
+
+set $FOCUS #989898
+set $UNFOCUS #3c3b37
+
+set $up k
+set $down j
+set $left h
+set $right l
+
+font xft:FontAwesome 10, Terminus 9
+#font xft:SFMono Nerd Font 9
+
+# Use Mouse+$mod to drag floating windows to their wanted position
+floating_modifier $mod
+
+set $wp1 1
+set $wp2 2
+set $wp3 3
+set $wp4 4
+set $wp5 5
+set $wp6 6
+set $wp7 7
+set $wp8 8
+set $wp9 9
+set $wp10 10
+
+# Switch workspaces on a monitor with up/down
+bindsym $mod+Control+Up workspace next_on_output
+bindsym $mod+Control+Down workspace prev_on_output
+bindsym $mod+Control+$up workspace next_on_output
+bindsym $mod+Control+$down workspace prev_on_output
+# Switch focus between monitors with left/right
+bindsym $mod+Control+Left focus output left
+bindsym $mod+Control+Right focus output right
+bindsym $mod+Control+$left focus output left
+bindsym $mod+Control+$right focus output right
+
+# start a terminal
+bindsym $mod+Return exec i3-sensible-terminal
+
+# kill focused window
+bindsym $mod+Shift+q kill
+
+bindsym $mod+Tab exec "~/.config/i3/tab-window.sh"
+bindsym $mod+Control+Tab exec "/usr/local/bin/skippy-xd --toggle-window-picker"
+# Screen lock on Ctrl-Alt-Del showing fuzzy screenshot
+bindsym $mod+Control+Delete exec "~/.config/i3/fuzzy_lock.sh"
+
+# start dmenu (a program launcher)
+bindsym $mod+d exec dmenu_run
+# Alternate launcher
+bindsym $mod+t exec --no-startup-id rofi -show run
+# There also is the (new) i3-dmenu-desktop which only displays applications
+# shipping a .desktop file. It is a wrapper around dmenu, so you need that
+# installed.
+# bindsym $mod+d exec --no-startup-id i3-dmenu-desktop
+
+# change focus
+bindsym $mod+$left focus left
+bindsym $mod+$down focus down
+bindsym $mod+$up focus up
+bindsym $mod+$right focus right
+
+# alternatively, you can use the cursor keys:
+#bindsym $mod+Left focus left # clash with browsers back
+bindsym $mod+Down focus down
+bindsym $mod+Up focus up
+#bindsym $mod+Right focus right
+
+# move focused window
+bindsym $mod+Shift+$left move left
+bindsym $mod+Shift+$down move down
+bindsym $mod+Shift+$up move up
+bindsym $mod+Shift+$right move right
+
+# alternatively, you can use the cursor keys:
+bindsym $mod+Shift+Left move left
+bindsym $mod+Shift+Down move down
+bindsym $mod+Shift+Up move up
+bindsym $mod+Shift+Right move right
+
+# split in horizontal orientation, window created after this will go in split
+bindsym $mod+c split h
+
+# split in vertical orientation
+bindsym $mod+v split v
+
+# enter fullscreen mode for the focused container
+bindsym $mod+f fullscreen
+
+# change container layout (stacked, tabbed, toggle split)
+bindsym $mod+s layout stacking
+bindsym $mod+w layout tabbed
+bindsym $mod+e layout toggle split
+
+# toggle tiling / floating
+bindsym $mod+Shift+space floating toggle
+
+# change focus between tiling / floating windows
+bindsym $mod+space focus mode_toggle
+
+# focus the parent container
+bindsym $mod+a focus parent
+
+# focus the child container
+#bindsym $mod+d focus child
+
+# switch to workspace
+bindsym $mod+1 workspace $wp1
+bindsym $mod+2 workspace $wp2
+bindsym $mod+3 workspace $wp3
+bindsym $mod+4 workspace $wp4
+bindsym $mod+5 workspace $wp5
+bindsym $mod+6 workspace $wp6
+bindsym $mod+7 workspace $wp7
+bindsym $mod+8 workspace $wp8
+bindsym $mod+9 workspace $wp9
+bindsym $mod+0 workspace $wp10
+
+# move focused container to workspace
+bindsym $mod+Shift+1 move container to workspace $wp1
+bindsym $mod+Shift+2 move container to workspace $wp2
+bindsym $mod+Shift+3 move container to workspace $wp3
+bindsym $mod+Shift+4 move container to workspace $wp4
+bindsym $mod+Shift+5 move container to workspace $wp5
+bindsym $mod+Shift+6 move container to workspace $wp6
+bindsym $mod+Shift+7 move container to workspace $wp7
+bindsym $mod+Shift+8 move container to workspace $wp8
+bindsym $mod+Shift+9 move container to workspace $wp9
+bindsym $mod+Shift+0 move container to workspace $wp10
+
+# media keys
+bindsym XF86AudioRaiseVolume exec --no-startup-id pactl set-sink-volume 0 +5% #increase sound volume
+bindsym XF86AudioLowerVolume exec --no-startup-id pactl set-sink-volume 0 -5% #decrease sound volume
+#bindsym XF86AudioRaiseVolume exec pactl -- set-sink-volume 0 +5% #increase sound volume
+#bindsym XF86AudioLowerVolume exec pactl -- set-sink-volume 0 -5% #decrease sound volume
+bindsym XF86AudioMute exec --no-startup-id pactl set-sink-mute 0 toggle # mute sound
+bindsym XF86MonBrightnessUp exec xbacklight -inc 20 # increase screen brightness
+bindsym XF86MonBrightnessDown exec xbacklight -dec 20 # decrease screen brightness
+bindsym XF86AudioPlay exec playerctl play-pause
+bindsym XF86AudioPause exec playerctl pause
+bindsym XF86AudioNext exec playerctl next
+bindsym XF86AudioPrev exec playerctl previous
+bindsym XF86TouchpadToggle exec /some/path/toggletouchpad.sh # toggle touchpad
+
+
+
+# reload the configuration file
+bindsym $mod+Shift+c reload
+# restart i3 inplace (preserves your layout/session, can be used to upgrade i3)
+bindsym $mod+Shift+r restart
+# exit i3 (logs you out of your X session)
+bindsym $mod+Shift+e exec "i3-nagbar -t warning -m 'You pressed the exit shortcut. Do you really want to exit i3? This will end your X session.' -b 'Yes, exit i3' 'i3-msg exit'"
+
+# resize window (you can also use the mouse for that)
+mode "resize" {
+    # These bindings trigger as soon as you enter the resize mode
+
+    # Pressing left will shrink the window’s width.
+    # Pressing right will grow the window’s width.
+    # Pressing up will shrink the window’s height.
+    # Pressing down will grow the window’s height.
+    bindsym $left resize shrink width 10 px or 10 ppt
+    bindsym $down resize shrink height 10 px or 10 ppt
+    bindsym $up resize grow height 10 px or 10 ppt
+    bindsym $right resize grow width 10 px or 10 ppt
+
+    # same bindings, but for the arrow keys
+    bindsym Left resize shrink width 10 px or 10 ppt
+    bindsym Down resize grow height 10 px or 10 ppt
+    bindsym Up resize shrink height 10 px or 10 ppt
+    bindsym Right resize grow width 10 px or 10 ppt
+
+    # back to normal: Enter or Escape
+    bindsym Return mode "default"
+    bindsym Escape mode "default"
+}
+
+bindsym $mod+r mode "resize"
+
+mode "App launch" {
+    # File browser
+    bindsym p exec pcmanfm
+    # Web Browsers
+    bindsym f exec firefox
+    bindsym Shift+f exec "flatpak run org.mozilla.FirefoxDevEdition"
+    bindsym s exec "flatpak run com.spotify.Client"
+    bindsym g exec google-chrome-stable
+    bindsym Return mode "default"
+    bindsym Escape mode "default"
+}
+bindsym $mod+o mode "App launch"
+
+mode "Mode Wkspace" {
+    bindsym Left move workspace to output left
+    bindsym Right move workspace to output right
+    bindsym Return mode "default"
+    bindsym Escape mode "default"
+}
+bindsym $mod+m mode "Move Wkspace"
+
+# Start i3bar to display a workspace bar (plus the system information i3status
+# finds out, if available)
+#bar {
+#  output DVI-I-2
+#  position bottom
+#  font xft:Inconsolata 9
+#  status_command i3blocks
+#  tray_output primary
+#}
+#bar {
+#  output DVI-I-1
+#  position bottom
+#  font xft:Inconsolata 9
+#  status_command bumblebee-status -m amixer pulseaudio caffeine cpu datetime disk load memory nic -t powerline -p nic.exclude="lo,virbr,docker,vboxnet,veth,rose,nr"
+#  status_command i3blocks
+#  separator_symbol "|"
+#  colors {
+#    separator #dc322f
+#    background #002b36
+#    statusline #268bd2
+#    focused_workspace #fdf6e3 #859900 #fdf6e3
+#    active_workspace #fdf6e3 #6c71c4 #fdf6e3
+#    inactive_workspace #586e75 #93a1a1 #002b36
+#    urgent_workspace #d33682 #d33682 #fdf6e3
+#  }
+#  tray_output none
+#}
+
+### i3-gaps stuff ###
+
+# Necessary for i3-gaps to work properly (pixel can be any value)
+for_window [class="^.*"] border pixel 2
+for_window [class="Spotify"] border pixel 1
+for_window [class="Firefox"] border pixel 1
+for_window [title="^Steam - Update News"] kill
+for_window [title="Steam - Update News"] kill
+for_window [title="Nuclear Throne"] floating enable
+for_window [window_role="pop-up"] floating enable
+for_window [window_role="^conversation$"] floating enable
+for_window [window_role="messages"] floating enable
+for_window [window_role="pop-up"] floating enable
+for_window [window_role="task_dialog"] floating enable
+
+
+
+
+# Smart Gaps
+smart_gaps on
+
+# Smart Borders
+smart_borders on
+
+# Some color adjustments
+#
+#
+# Layout colors 	    bord 	bg 		text    indicator (split)
+client.background 		$UNFOCUS
+
+# Set inner/outer gaps
+gaps inner 15
+gaps outer 0
+
+# Gaps mode
+set $mode_gaps Gaps: (o) outer, (i) inner
+set $mode_gaps_outer Outer Gaps: +|-|0 (local), Shift + +|-|0 (global)
+set $mode_gaps_inner Inner Gaps: +|-|0 (local), Shift + +|-|0 (global)
+bindsym $mod+Shift+g mode "$mode_gaps"
+
+mode "$mode_gaps" {
+        bindsym o      mode "$mode_gaps_outer"
+        bindsym i      mode "$mode_gaps_inner"
+        bindsym Return mode "default"
+        bindsym Escape mode "default"
+}
+
+mode "$mode_gaps_inner" {
+        bindsym plus  gaps inner current plus 5
+        bindsym minus gaps inner current minus 5
+        bindsym 0     gaps inner current set 0
+
+        bindsym Shift+plus  gaps inner all plus 5
+        bindsym Shift+minus gaps inner all minus 5
+        bindsym Shift+0     gaps inner all set 0
+
+        bindsym Return mode "default"
+        bindsym Escape mode "default"
+}
+
+mode "$mode_gaps_outer" {
+        bindsym plus  gaps outer current plus 5
+        bindsym minus gaps outer current minus 5
+        bindsym 0     gaps outer current set 0
+
+        bindsym Shift+plus  gaps outer all plus 5
+        bindsym Shift+minus gaps outer all minus 5
+        bindsym Shift+0     gaps outer all set 0
+
+        bindsym Return mode "default"
+        bindsym Escape mode "default"
+}
+
+# Composite engine
+exec --no-startup-id compton -CGb
+# volume button
+exec --no-startup-id volumeicon &
+# automount fu
+exec --no-startup-id udisks-glue -c ~/.config/udisks-glue/config
+# clipboard manager
+exec --no-startup-id clipit &
+# lock after 15 minutes
+exec --no-startup-id xautolock -time 5 -notify 10 -notifier "notify-send 'locking shortly...'" -corners 00+0 -cornerdelay 2 -locker '~/.config/i3/fuzzy_lock.sh' &
+# expose style window picker
+exec --no-startup-id skippy-xd --start-daemon &
+# Wallpaper setter
+exec --no-startup-id variety
+exec --no-startup-id xrandr --output DVI-I-2 --primary
+exec --no-startup-id ~/.config/polybar/launch.sh
+
+
+
+
+# vim:filetype=i3
+
+bindsym --release Caps_Lock exec pkill -SIGRTMIN+11 i3blocks
+bindsym --release Num_Lock exec pkill -SIGRTMIN+11 i3blocks
+
+client.focused #859900 #859900 #fdf6e3 #6c71c4
+client.focused_inactive #073642 #073642 #eee8d5 #6c71c4
+client.unfocused #073642 #073642 #93a1a1 #586e75
+client.urgent #d33682 #d33682 #fdf6e3 #dc322f
