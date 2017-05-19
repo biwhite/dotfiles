@@ -44,7 +44,7 @@ bindsym $mod+Return exec i3-sensible-terminal
 bindsym $mod+Shift+q kill
 
 bindsym $mod+Tab exec "~/.config/i3/tab-window.sh"
-bindsym $mod+Control+Tab exec "/usr/local/bin/skippy-xd --toggle-window-picker"
+bindsym $mod+Control+Tab exec "/usr/bin/skippy-xd --toggle-window-picker"
 # Screen lock on Ctrl-Alt-Del showing fuzzy screenshot
 bindsym $mod+Control+Delete exec "~/.config/i3/fuzzy_lock.sh"
 
@@ -184,8 +184,8 @@ mode "App launch" {
     # File browser
     bindsym p exec pcmanfm
     # Web Browsers
+    bindsym Shift+f exec firefox-developer
     bindsym f exec firefox
-    bindsym Shift+f exec "flatpak run org.mozilla.FirefoxDevEdition"
     bindsym s exec "flatpak run com.spotify.Client"
     bindsym g exec google-chrome-stable
     bindsym Return mode "default"
@@ -318,9 +318,6 @@ exec --no-startup-id skippy-xd --start-daemon &
 exec --no-startup-id variety
 exec --no-startup-id xrandr --output DVI-I-2 --primary
 exec --no-startup-id ~/.config/polybar/launch.sh
-
-
-
 
 # vim:filetype=i3
 
