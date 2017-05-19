@@ -1,0 +1,37 @@
+
+! Import theme colors + rofi
+!#include ".Xresources.d/themes/cmyk"
+!#include ".Xresources.d/themes/donut"
+!#include ".Xresources.d/themes/floral"
+#include ".Xresources.d/themes/grayscale"
+!#include ".Xresources.d/themes/kiss_shot"
+!#include ".Xresources.d/themes/senjou"
+!#include ".Xresources.d/themes/sky"
+!#include ".Xresources.d/themes/sunsetcity"
+!#include ".Xresources.d/themes/taiga"
+!#include ".Xresources.d/themes/touka"
+
+!background:        #282828
+!*foreground:        #F2F1F0
+
+! Some font rendering fixings
+Xft.antialias: true
+Xft.autohint: false
+Xft.dpi: 96
+Xft.hinting: true
+Xft.hintstyle: hintslight
+Xft.lcdfilter: lcddefault
+Xft.rgba: rgb
+
+! Rofi defaults
+rofi.eh: 3
+rofi.width: 100
+rofi.padding: 300
+rofi.lines: 4
+rofi.line-margin: 5
+rofi.hide_scrollbar: True
+rofi.scrollbar_width: 0
+rofi.terminal: urxvt
+rofi.location: 0
+
+#include ".Xresources.d/urxvt"

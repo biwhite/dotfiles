@@ -1,0 +1,92 @@
+set alias_file=~/.mutt/aliases            # Keep aliases in this file.
+set copy
+set delete=ask-yes
+set edit_headers
+set fcc_clear
+set folder=~/Maildir
+set hidden_host
+set hidden_host                           # Hide host details.
+set include
+set mbox=+Read
+set forward_format="Fwd: %s"
+set fast_reply=yes
+set autoedit=yes
+set mime_forward=ask-yes
+set nobeep
+set noconfirmappend                       # Just append, don't hassle me.
+set nomarkers
+set nomove
+set nosmart_wrap
+set nostrict_threads
+set pager_index_lines=10
+set pager_context=3
+set pager_stop                            # Don't skip msgs on next page.
+set header_cache=~/.cache/mutt/hcache
+set postpone=ask-no                       # Ask about postponing.
+set postponed=+Drafts                     # Where postponed messages live.
+set print=ask-yes
+set record=+"Sent Items"
+set sendmail="/usr/bin/msmtp"
+set sort=threads
+set sort_aux=last-date-received
+set spoolfile=+INBOX
+source ~/.mutt/from
+source ~/.mutt/neomuttrc
+source ~/.mutt/muttrc.mailboxes                  # Define the list of folders that receive mail.
+#source ~/.mutt/colours                    # Define colours.
+alternative_order text/enriched text/plain text/html 
+
+# Last, but not least, get mutt to display its version on startup.
+push <show-version>
+
+color header cyan black .
+color header yellow black ^From
+color header yellow black ^Subject
+color body yellow black [_a-z\.\$A-Z0-9-]+@[a-zA-Z0-9\./\-]+
+color body yellow black (http|ftp)://[_a-zA-Z0-9\?\=\&\@\%\#\:\,\./~\-]+
+color quoted green black
+color signature cyan black
+color attachment yellow black
+color tree white black
+color indicator black cyan
+color status yellow blue
+color tilde blue black
+color normal white black
+color index green black ~N
+color index brightyellow black ~T
+color index brightred black ~F
+color index brightblue black ~D
+
+set query_command="lbdbq '%s'"
+set print_command="/usr/bin/mp -A4 -F -l -m -left 74 -right 74 | lpr -P HP-Color-LaserJet-cp3525"
+
+auto_view text/html
+
+macro index <F8> \
+"<enter-command>set my_old_pipe_decode=\$pipe_decode my_old_wait_key=\$wait_key nopipe_decode nowait_key<enter>\
+<shell-escape>notmuch-mutt -r --prompt search<enter>\
+<change-folder-readonly>`echo ${XDG_CACHE_HOME:-$HOME/.cache}/notmuch/mutt/results`<enter>\
+<enter-command>set pipe_decode=\$my_old_pipe_decode wait_key=\$my_old_wait_key<enter>" \
+      "notmuch: search mail"
+
+macro index <F9> \
+"<enter-command>set my_old_pipe_decode=\$pipe_decode my_old_wait_key=\$wait_key nopipe_decode nowait_key<enter>\
+<pipe-message>notmuch-mutt -r thread<enter>\
+<change-folder-readonly>`echo ${XDG_CACHE_HOME:-$HOME/.cache}/notmuch/mutt/results`<enter>\
+<enter-command>set pipe_decode=\$my_old_pipe_decode wait_key=\$my_old_wait_key<enter>" \
+      "notmuch: reconstruct thread"
+
+macro index <F6> \
+"<enter-command>set my_old_pipe_decode=\$pipe_decode my_old_wait_key=\$wait_key nopipe_decode nowait_key<enter>\
+<pipe-message>notmuch-mutt tag -- -inbox<enter>\
+<enter-command>set pipe_decode=\$my_old_pipe_decode wait_key=\$my_old_wait_key<enter>" \
+      "notmuch: remove message from inbox"
+
+macro attach O \
+"\
+<enter-command>unset wait_key<enter>\
+<shell-escape>rm -f /tmp/mutt-attach<enter>\
+<save-entry><kill-line>/tmp/mutt-attach<enter>\
+<shell-escape>xdg-open /tmp/mutt-attach &\
+"
+macro pager \cb 'urlview' 'Follow links with urlview'

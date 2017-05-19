@@ -1,0 +1,17 @@
+# https://www.neomutt.org/feature/sidebar-intro
+set sidebar_visible
+set sidebar_format = "%B%?F? [%F]?%* %?N?%N/?%S"
+bind index,pager B sidebar-toggle-visible 
+set mail_check_stats
+macro index c "<change-folder>?<toggle-mailboxes>" "open a different folder"
+macro pager c "<change-folder>?<toggle-mailboxes>" "open a different folder"
+bind index,pager \CP sidebar-prev       # Ctrl-Shift-P - Previous Mailbox
+bind index,pager \CN sidebar-next       # Ctrl-Shift-N - Next Mailbox
+bind index,pager \CO sidebar-open       # Ctrl-Shift-O - Open Highlighted Mailbox
+bind index,pager K sidebar-prev       # Ctrl-Shift-P - Previous Mailbox
+bind index,pager J sidebar-next       # Ctrl-Shift-N - Next Mailbox
+bind index,pager O sidebar-open       # Ctrl-Shift-O - Open Highlighted Mailbox
+
+# https://www.neomutt.org/feature/notmuch
+#
+# # This variable specifies notmuch query limit.

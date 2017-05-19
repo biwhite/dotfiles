@@ -1,0 +1,26 @@
+! ------------------------------------------------------------------------------
+! ROFI Color theme - Touka
+! ------------------------------------------------------------------------------
+
+rofi.font: Tewi 9
+rofi.color-enabled: true
+rofi.fullscreen: true
+
+! -color-window background, border color, separator color
+!
+rofi.color-window: #96a1e0, #96a1e0, #e0e0df
+
+
+! -color-normal background, foreground, background alt, highlight background, highlight foreground
+!
+rofi.color-normal: #96a1e0, #e0e0df, #96a1e0, #e0e0df, #1c1c20
+
+
+! -color-active background, foreground, background alt, highlight background, highlight foreground
+!
+rofi.color-active: #96a1e0, #e0e0df, #96a1e0, #e0e0df, #1c1c20
+
+
+! -color-urgent background, foreground, background alt, highlight background, highlight foreground
+!
+rofi.color-urgent: #e0d8d1, #dc322f, #eee8d5, #dc322f, #fdf6e3
