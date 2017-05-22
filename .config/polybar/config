@@ -42,7 +42,7 @@ font-3 = siji:pixelsize=10;1
 font-4 = fontawesome:pixelsize=8;1
 modules-left = i3 scratch
 modules-center = date
-modules-right = ethereum btc eth weather power-menu
+modules-right = redshift coretemps ethereum btc eth weather power-menu
 
 [bar/topleft]
 monitor = ${env:MONITOR:DVI-I-1}
@@ -256,6 +256,18 @@ ramp-signal-2 = 
 ramp-signal-3 = 
 ramp-signal-4 = 
 ramp-signal-foreground = ${colors.foreground-alt}
+
+[module/redshift]
+type = custom/script
+interval = 5
+
+exec = ~/.config/polybar/redshift.sh
+
+[module/coretemps]
+type = custom/script
+interval = 5
+exec-if = sensors
+exec = ~/.config/polybar/tempcores.sh
 
 [module/btc]
 type = custom/script
