@@ -30,6 +30,7 @@ Plugin 'danro/rename.vim'
 Plugin 'Glench/Vim-Jinja2-Syntax'
 Plugin 'Taglist.vim'
 Plugin 'kien/ctrlp.vim'
+Plugin 'farmergreg/vim-lastplace'
 Plugin 'michalbachowski/vim-wombat256mod'
 Plugin 'flazz/vim-colorschemes'
 call vundle#end()            " required

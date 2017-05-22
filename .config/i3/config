@@ -43,6 +43,7 @@ bindsym $mod+Return exec i3-sensible-terminal
 # kill focused window
 bindsym $mod+Shift+q kill
 
+bindsym $mod+q exec quickswitch
 bindsym $mod+Tab exec "~/.config/i3/tab-window.sh"
 bindsym $mod+Control+Tab exec "/usr/bin/skippy-xd --toggle-window-picker"
 # Screen lock on Ctrl-Alt-Del showing fuzzy screenshot

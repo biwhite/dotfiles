@@ -40,9 +40,9 @@ font-1 = fixed:pixelsize=10;1
 font-2 = unifont:fontformat=truetype:size=8:antialias=false;0
 font-3 = siji:pixelsize=10;1
 font-4 = fontawesome:pixelsize=8;1
-modules-left = i3
+modules-left = i3 scratch
 modules-center = date
-modules-right = weather power-menu
+modules-right = ethereum btc eth weather power-menu
 
 [bar/topleft]
 monitor = ${env:MONITOR:DVI-I-1}
@@ -75,7 +75,7 @@ font-4 = fontawesome:pixelsize=8;1
 
 modules-left = current-song
 modules-center = xwindow
-modules-right =  pac-updates volume filesystem battery i3
+modules-right =  pac-updates read inbox volume filesystem battery i3
 
 tray-position = left
 tray-padding = 0
@@ -257,13 +257,31 @@ ramp-signal-3 = 
 ramp-signal-4 = 
 ramp-signal-foreground = ${colors.foreground-alt}
 
+[module/btc]
+type = custom/script
+interval = 180
+format = <label>
+format-prefix = " "
+tail = true
+format-prefix-foreground = ${colors.foreground-alt}
+exec = ~/.config/polybar/bitcoin
+
+[module/ethereum]
+type = custom/script
+interval = 180
+format = <label>
+format-prefix = " "
+tail = true
+format-prefix-foreground = ${colors.foreground-alt}
+exec = ~/.config/polybar/ether
+
 [module/eth]
 type = internal/network
 interface = enp5s0
 interval = 3.0
 
 ;format-connected-underline = #55aa55
-format-connected-prefix = " "
+format-connected-prefix = ""
 format-connected-prefix-foreground = ${colors.foreground-alt}
 label-connected = %local_ip%
 
@@ -277,7 +295,7 @@ format-disconnected =
 type = internal/date
 interval = 5
 
-date = "%d:%m:%y"
+date = "%d/%m/%y"
 
 time = %H:%M:%S
 time-alt = %H:%M:%S
@@ -286,7 +304,7 @@ format-prefix = 
 format-prefix-foreground = ${colors.foreground}
 ;format-underline = #0a6cf5
 ;click-left = 
-label = %date% %time%
+label = " %date% %time%"
 click-middle = xdg-open https://webmail.6dg.co.uk/owa/#path=/calendar
 click-right = xdg-open https://calendar.google.com/calendar/render
 
@@ -393,7 +411,7 @@ menu-2-1-exec = menu-open-0
 
 [settings]
 screenchange-reload = true
-;compositing-background = xor
+compositing-background = xor
 ;compositing-background = screen
 ;compositing-foreground = source
 ;compositing-border = over
@@ -403,6 +421,28 @@ margin-top = 5
 margin-bottom = 5
 
 ; Custom modules
+[module/inbox]
+type = custom/script
+exec = ~/.config/polybar/mail.sh INBOX
+click-left = x-terminal-emulator -e '~/.config/polybar/mailread INBOX' &
+;click-middle = x-terminal-emulator -e '~/.config/polybar/mailread Read' &
+label =  %output%
+interval = 180
+
+[module/read]
+type = custom/script
+exec = ~/.config/polybar/mail.sh Read
+click-left = x-terminal-emulator -e '~/.config/polybar/mailread Read' &
+label =  %output%
+interval = 180
+
+[module/scratch]
+type = custom/script
+exec = echo " "
+click-left = i3-msg scratchpad show
+label = 
+interval = 1800
+
 [module/pac-updates]
 type = custom/script
 exec = /usr/local/bin/pac-updates.sh
