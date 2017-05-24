@@ -189,8 +189,8 @@ mode "App launch" {
     # File browser
     bindsym p exec pcmanfm
     # Web Browsers
-    bindsym Shift+f exec firefox-developer
-    bindsym f exec firefox
+    bindsym f exec firefox-developer
+    bindsym Shift+f exec firefox
     bindsym s exec "flatpak run com.spotify.Client"
     bindsym g exec google-chrome-stable
     bindsym Return mode "default"
@@ -315,6 +315,8 @@ exec --no-startup-id volumeicon &
 exec --no-startup-id udisks-glue -c ~/.config/udisks-glue/config
 # clipboard manager
 exec --no-startup-id clipit &
+# fancy screensaver
+exec --no-startup-id xscreensaver -no-splash
 # lock after 15 minutes
 exec --no-startup-id xautolock -time 5 -notify 10 -notifier "notify-send 'locking shortly...'" -corners 00+0 -cornerdelay 2 -locker '~/.config/i3/fuzzy_lock.sh' &
 # expose style window picker
@@ -323,6 +325,10 @@ exec --no-startup-id skippy-xd --start-daemon &
 exec --no-startup-id variety
 exec --no-startup-id xrandr --output DVI-I-2 --primary
 exec --no-startup-id ~/.config/polybar/launch.sh
+exec --no-startup-id dunst 
+# 
+exec --no-startup-id aarchup -p package-upgrade
+exec --no-startup-id numlockx on
 
 # vim:filetype=i3
 
