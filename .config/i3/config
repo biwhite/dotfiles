@@ -53,6 +53,7 @@ bindsym $mod+Control+Delete exec "~/.config/i3/fuzzy_lock.sh"
 bindsym $mod+d exec dmenu_run
 # Alternate launcher
 bindsym $mod+t exec --no-startup-id rofi -show run
+bindsym $mod+space exec --no-startup-id rofi -show run
 # There also is the (new) i3-dmenu-desktop which only displays applications
 # shipping a .desktop file. It is a wrapper around dmenu, so you need that
 # installed.
@@ -85,6 +86,7 @@ bindsym $mod+Shift+Right move right
 bindsym $mod+x [floating] move scratchpad
 bindsym $mod+Shift+minus move scratchpad
 bindsym $mod+minus scratchpad show
+bindsym $mod+grave focus mode_toggle
 
 # split in horizontal orientation, window created after this will go in split
 bindsym $mod+c split h
@@ -104,7 +106,7 @@ bindsym $mod+e layout toggle split
 bindsym $mod+Shift+space floating toggle
 
 # change focus between tiling / floating windows
-bindsym $mod+space focus mode_toggle
+#bindsym $mod+space focus mode_toggle
 
 # focus the parent container
 bindsym $mod+a focus parent
@@ -242,7 +244,11 @@ for_window [class="Spotify"] border pixel 1
 for_window [class="Firefox"] border pixel 1
 for_window [title="^Steam - Update News"] kill
 for_window [title="Steam - Update News"] kill
+for_window [title="Steam - News.*"] kill
+for_window [title="Steam"] floating enable
+for_window [title="Geneshift.*"] floating enable
 for_window [title="Nuclear Throne"] floating enable
+for_window [title="RimWorld by Ludeon Studios"] floating enable
 for_window [window_role="pop-up"] floating enable
 for_window [window_role="^conversation$"] floating enable
 for_window [window_role="messages"] floating enable
@@ -329,6 +335,7 @@ exec --no-startup-id dunst
 # 
 exec --no-startup-id aarchup -p package-upgrade
 exec --no-startup-id numlockx on
+exec --no-startup-id unclutter
 
 # vim:filetype=i3
 

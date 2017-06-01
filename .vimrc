@@ -16,6 +16,7 @@ call vundle#begin()
 Plugin 'VundleVim/Vundle.vim'
 Plugin 'wincent/command-t'    " file navigation
 Plugin 'tpope/vim-fugitive'   " git commands with :G<thing>
+Plugin 'tpope/vim-unimpaired'   " match mappings
 Plugin 'rstacruz/sparkup'     " write css style, expands into html
 Plugin 'tmhedberg/SimpylFold' " nicer folds
 Plugin 'Valloric/YouCompleteMe' " auto competion engine
