@@ -20,7 +20,8 @@ Plugin 'tpope/vim-unimpaired'   " match mappings
 Plugin 'rstacruz/sparkup'     " write css style, expands into html
 Plugin 'tmhedberg/SimpylFold' " nicer folds
 Plugin 'Valloric/YouCompleteMe' " auto competion engine
-Plugin 'nvie/vim-flake8' " PEP8 formatting
+Plugin 'nvie/vim-flake8' " PEP8 formatting on F7
+Plugin 'tell-k/vim-autopep8' " PEP8 fixer using :Autopep8, requires pip pep8
 Plugin 'scrooloose/syntastic'   " syntax checking
 Plugin 'scrooloose/nerdtree' " tree explorer
 Plugin 'vim-airline/vim-airline' "statusbar/top bar

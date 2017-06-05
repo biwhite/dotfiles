@@ -24,5 +24,6 @@ Xft.hintstyle: hintslight
 Xft.lcdfilter: lcddefault
 Xft.rgba: rgb
 
+Xcursor.theme: Bluecurve
 
 #include ".Xresources.d/urxvt"

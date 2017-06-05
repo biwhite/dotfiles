@@ -88,3 +88,4 @@ export SSH_AUTH_SOCK="$XDG_RUNTIME_DIR/ssh-agent.socket"
 
 source ~/.zsh_aliases
 export VISUAL="vim"
+[[ $- == *i* ]] && tty
