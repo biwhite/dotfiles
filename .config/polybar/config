@@ -73,7 +73,7 @@ font-2 = unifont:fontformat=truetype:size=8:antialias=false;0
 font-3 = siji:pixelsize=10;1
 font-4 = fontawesome:pixelsize=8;1
 
-modules-left = current-song
+modules-left = previous pause play next current-song
 modules-center = xwindow
 modules-right =  pac-updates read inbox volume filesystem ups i3
 
@@ -486,5 +486,25 @@ click-middle = mpc toggle
 click-right = mpc next
 label = %output%
 interval = 1
+
+[module/previous]
+type = custom/text
+content = 
+click-left = playerctl previous
+
+[module/pause]
+type = custom/text
+content = 
+click-left = playerctl pause
+
+[module/play]
+type = custom/text
+content = 
+click-left = playerctl play
+
+[module/next]
+type = custom/text
+content = 
+click-left = playerctl next
 
 ; vim:ft=dosini
