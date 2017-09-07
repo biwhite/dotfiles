@@ -18,7 +18,7 @@ secondary = #e60053
 alert = #bd2c40
 
 [bar/topright]
-monitor = ${env:MONITOR:DVI-I-2}
+monitor = ${env:MONITOR:HDMI-1}
 width = 100%
 height = 20
 ;offset-x = 1%
@@ -45,7 +45,7 @@ modules-center = date
 modules-right = redshift coretemps ethereum btc eth weather power-menu
 
 [bar/topleft]
-monitor = ${env:MONITOR:DVI-I-1}
+monitor = ${env:MONITOR:DP-2}
 width = 100%
 height = 20
 ;offset-x = 1%
@@ -453,7 +453,7 @@ interval = 1800
 [module/pac-updates]
 type = custom/script
 exec = /usr/local/bin/pac-updates.sh
-click-left = x-terminal-emulator -e 'pacaur -Syu;echo -n "Flatpak: ";flatpak update;echo "=== Finished ===";read'
+click-left = x-terminal-emulator -e 'pacaur -Syu;echo -n "Flatpak: ";flatpak update;sudo paccache -rk3; echo "=== Finished ===";read'
 label = %output%
 interval = 30
 

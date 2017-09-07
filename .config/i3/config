@@ -1,9 +1,8 @@
-####################################################################################
-# Built from ~/.config/i3/config.d by i3configger 0.4.4 (Wed Jun  7 18:08:26 2017) #
-####################################################################################
-### apps.conf ###
+# App launch mode
 mode "App launch" {
+    # File browser
     bindsym p exec pcmanfm
+    # Web Browsers
     bindsym f exec firefox-developer
     bindsym Shift+f exec firefox
     bindsym s exec "flatpak run com.spotify.Client"
@@ -11,20 +10,23 @@ mode "App launch" {
     bindsym Return mode "default"
     bindsym Escape mode "default"
 }
-bindsym Mod1+o mode "App launch"
+bindsym $mod+o mode "App launch"
 
 
-### colours.conf ###
 client.focused #859900 #859900 #fdf6e3 #6c71c4
 client.focused_inactive #073642 #073642 #eee8d5 #6c71c4
 client.unfocused #073642 #073642 #93a1a1 #586e75
 client.urgent #d33682 #d33682 #fdf6e3 #dc322f
-client.background               #3c3b37
+
+set $FOCUS #989898
+set $UNFOCUS #3c3b37
+client.background               $UNFOCUS
 
 
-### floaters.conf ###
 for_window [class="Spotify"] border pixel 1
 for_window [class="Firefox"] border pixel 1
+for_window [class="XEyes"] floating enable
+for_window [class="anbox"] floating enable
 for_window [title="^Steam - Update News"] kill
 for_window [title="Steam - Update News"] kill
 for_window [title="Steam - News.*"] kill
@@ -38,55 +40,98 @@ for_window [window_role="messages"] floating enable
 for_window [window_role="pop-up"] floating enable
 for_window [window_role="task_dialog"] floating enable
 
-
-### gaps.conf ###
+# Necessary for i3-gaps to work properly (pixel can be any value)
 for_window [class="^.*"] border pixel 2
+
+# Set inner/outer gaps
 gaps inner 15
 gaps outer 0
 smart_gaps on
 smart_borders on
-bindsym Mod1+Shift+g mode "Gaps: (o) outer, (i) inner"
-mode "Gaps: (o) outer, (i) inner" {
-        bindsym o      mode "Outer Gaps: +|-|0 (local), Shift + +|-|0 (global)"
-        bindsym i      mode "Inner Gaps: +|-|0 (local), Shift + +|-|0 (global)"
+
+# Gaps mode
+set $mode_gaps Gaps: (o) outer, (i) inner
+set $mode_gaps_outer Outer Gaps: +|-|0 (local), Shift + +|-|0 (global)
+set $mode_gaps_inner Inner Gaps: +|-|0 (local), Shift + +|-|0 (global)
+bindsym $mod+Shift+g mode "$mode_gaps"
+
+mode "$mode_gaps" {
+        bindsym o      mode "$mode_gaps_outer"
+        bindsym i      mode "$mode_gaps_inner"
         bindsym Return mode "default"
         bindsym Escape mode "default"
 }
-mode "Inner Gaps: +|-|0 (local), Shift + +|-|0 (global)" {
+
+mode "$mode_gaps_inner" {
         bindsym plus  gaps inner current plus 5
         bindsym minus gaps inner current minus 5
         bindsym 0     gaps inner current set 0
+
         bindsym Shift+plus  gaps inner all plus 5
         bindsym Shift+minus gaps inner all minus 5
         bindsym Shift+0     gaps inner all set 0
+
         bindsym Return mode "default"
         bindsym Escape mode "default"
 }
-mode "Outer Gaps: +|-|0 (local), Shift + +|-|0 (global)" {
+
+mode "$mode_gaps_outer" {
         bindsym plus  gaps outer current plus 5
         bindsym minus gaps outer current minus 5
         bindsym 0     gaps outer current set 0
+
         bindsym Shift+plus  gaps outer all plus 5
         bindsym Shift+minus gaps outer all minus 5
         bindsym Shift+0     gaps outer all set 0
+
         bindsym Return mode "default"
         bindsym Escape mode "default"
 }
 
 
-### main.conf ###
-font xft:FontAwesome 10, Terminus 9
-bindsym Mod1+Return exec i3-sensible-terminal
-bindsym Mod1+Shift+q kill
-bindsym Mod1+q exec quickswitch
-bindsym Mod1+Tab exec "~/.config/i3/tab-window.sh"
-bindsym Mod1+Control+Tab exec "/usr/bin/skippy-xd --toggle-window-picker"
-bindsym Mod1+Control+Delete exec "~/.config/i3/fuzzy_lock.sh"
-bindsym Mod1+d exec dmenu_run
-bindsym Mod1+t exec --no-startup-id rofi -show run
-bindsym Mod1+space exec --no-startup-id rofi -show run
+set $mod Mod1
+
+font xft:Font Awesome 5 Regular 10, FontAwesome 10, Terminus 9
+#font xft:SFMono Nerd Font 9
+
+set $wp1 1
+set $wp2 2
+set $wp3 3
+set $wp4 4
+set $wp5 5
+set $wp6 6
+set $wp7 7
+set $wp8 8
+set $wp9 9
+set $wp10 10
+
+# start a terminal
+bindsym $mod+Return exec i3-sensible-terminal
+
+# kill focused window
+bindsym $mod+Shift+q kill
+
+bindsym $mod+q exec quickswitch
+bindsym $mod+Tab exec "~/.config/i3/tab-window.sh"
+bindsym $mod+Control+Tab exec "/usr/bin/skippy-xd --toggle-window-picker"
+# Screen lock on Ctrl-Alt-Del showing fuzzy screenshot
+bindsym $mod+Control+Delete exec "~/.config/i3/fuzzy_lock.sh"
+
+# start dmenu (a program launcher)
+bindsym $mod+d exec dmenu_run
+# Alternate launcher
+bindsym $mod+t exec --no-startup-id rofi -show run
+bindsym $mod+space exec --no-startup-id rofi -show run
+# There also is the (new) i3-dmenu-desktop which only displays applications
+# shipping a .desktop file. It is a wrapper around dmenu, so you need that
+# installed.
+# bindsym $mod+d exec --no-startup-id i3-dmenu-desktop
+
+# media keys
 bindsym XF86AudioRaiseVolume exec --no-startup-id pactl set-sink-volume 0 +5% #increase sound volume
 bindsym XF86AudioLowerVolume exec --no-startup-id pactl set-sink-volume 0 -5% #decrease sound volume
+#bindsym XF86AudioRaiseVolume exec pactl -- set-sink-volume 0 +5% #increase sound volume
+#bindsym XF86AudioLowerVolume exec pactl -- set-sink-volume 0 -5% #decrease sound volume
 bindsym XF86AudioMute exec --no-startup-id pactl set-sink-mute 0 toggle # mute sound
 bindsym XF86MonBrightnessUp exec xbacklight -inc 20 # increase screen brightness
 bindsym XF86MonBrightnessDown exec xbacklight -dec 20 # decrease screen brightness
@@ -95,21 +140,34 @@ bindsym XF86AudioPause exec playerctl pause
 bindsym XF86AudioNext exec playerctl next
 bindsym XF86AudioPrev exec playerctl previous
 bindsym XF86TouchpadToggle exec /some/path/toggletouchpad.sh # toggle touchpad
-bindsym Mod1+Shift+c reload
-bindsym Mod1+Shift+r restart
-bindsym Mod1+Shift+e exec "i3-nagbar -t warning -m 'You pressed the exit shortcut. Do you really want to exit i3? This will end your X session.' -b 'Yes, exit i3' 'i3-msg exit'"
+
+# reload the configuration file
+bindsym $mod+Shift+c reload
+# restart i3 inplace (preserves your layout/session, can be used to upgrade i3)
+bindsym $mod+Shift+r restart
+# exit i3 (logs you out of your X session)
+bindsym $mod+Shift+e exec "i3-nagbar -t warning -m 'You pressed the exit shortcut. Do you really want to exit i3? This will end your X session.' -b 'Yes, exit i3' 'i3-msg exit'"
+
+# Necessary for i3-gaps to work properly (pixel can be any value)
 for_window [class="^.*"] border pixel 2
+
 bindsym --release Caps_Lock exec pkill -SIGRTMIN+11 i3blocks
 bindsym --release Num_Lock exec pkill -SIGRTMIN+11 i3blocks
 
 
-### movement.conf ###
-floating_modifier Mod1
+set $up k
+set $down j
+set $left h
+set $right l
+#
+floating_modifier $mod
+
+# resize window (you can also use the mouse for that)
 mode "resize" {
-    bindsym h resize shrink width 10 px or 10 ppt
-    bindsym j resize shrink height 10 px or 10 ppt
-    bindsym k resize grow height 10 px or 10 ppt
-    bindsym l resize grow width 10 px or 10 ppt
+    bindsym $left resize shrink width 10 px or 10 ppt
+    bindsym $down resize shrink height 10 px or 10 ppt
+    bindsym $up resize grow height 10 px or 10 ppt
+    bindsym $right resize grow width 10 px or 10 ppt
     bindsym Left resize shrink width 10 px or 10 ppt
     bindsym Down resize grow height 10 px or 10 ppt
     bindsym Up resize shrink height 10 px or 10 ppt
@@ -117,84 +175,134 @@ mode "resize" {
     bindsym Return mode "default"
     bindsym Escape mode "default"
 }
-bindsym Mod1+r mode "resize"
+bindsym $mod+r mode "resize"
+
 mode "Mode Wkspace" {
     bindsym Left move workspace to output left
     bindsym Right move workspace to output right
     bindsym Return mode "default"
     bindsym Escape mode "default"
 }
-bindsym Mod1+m mode "Move Wkspace"
-bindsym Mod1+1 workspace 1
-bindsym Mod1+2 workspace 2
-bindsym Mod1+3 workspace 3
-bindsym Mod1+4 workspace 4
-bindsym Mod1+5 workspace 5
-bindsym Mod1+6 workspace 6
-bindsym Mod1+7 workspace 7
-bindsym Mod1+8 workspace 8
-bindsym Mod1+9 workspace 9
-bindsym Mod1+0 workspace 10
-bindsym Mod1+Shift+1 move container to workspace 1
-bindsym Mod1+Shift+2 move container to workspace 2
-bindsym Mod1+Shift+3 move container to workspace 3
-bindsym Mod1+Shift+4 move container to workspace 4
-bindsym Mod1+Shift+5 move container to workspace 5
-bindsym Mod1+Shift+6 move container to workspace 6
-bindsym Mod1+Shift+7 move container to workspace 7
-bindsym Mod1+Shift+8 move container to workspace 8
-bindsym Mod1+Shift+9 move container to workspace 9
-bindsym Mod1+Shift+0 move container to workspace 10
-bindsym Mod1+h focus left
-bindsym Mod1+j focus down
-bindsym Mod1+k focus up
-bindsym Mod1+l focus right
-bindsym Mod1+Down focus down
-bindsym Mod1+Up focus up
-bindsym Mod1+Shift+h move left
-bindsym Mod1+Shift+j move down
-bindsym Mod1+Shift+k move up
-bindsym Mod1+Shift+l move right
-bindsym Mod1+Shift+Left move left
-bindsym Mod1+Shift+Down move down
-bindsym Mod1+Shift+Up move up
-bindsym Mod1+Shift+Right move right
-bindsym Mod1+x [floating] move scratchpad
-bindsym Mod1+Shift+minus move scratchpad
-bindsym Mod1+minus scratchpad show
-bindsym Mod1+grave focus mode_toggle
-bindsym Mod1+c split h
-bindsym Mod1+v split v
-bindsym Mod1+f fullscreen
-bindsym Mod1+s layout stacking
-bindsym Mod1+w layout tabbed
-bindsym Mod1+e layout toggle split
-bindsym Mod1+Shift+space floating toggle
-bindsym Mod1+a focus parent
-bindsym Mod1+z focus child
-bindsym Mod1+Control+Up workspace next_on_output
-bindsym Mod1+Control+Down workspace prev_on_output
-bindsym Mod1+Control+k workspace next_on_output
-bindsym Mod1+Control+j workspace prev_on_output
-bindsym Mod1+Control+Left focus output left
-bindsym Mod1+Control+Right focus output right
-bindsym Mod1+Control+h focus output left
-bindsym Mod1+Control+l focus output right
+bindsym $mod+m mode "Move Wkspace"
+
+# switch to workspace
+bindsym $mod+1 workspace $wp1
+bindsym $mod+2 workspace $wp2
+bindsym $mod+3 workspace $wp3
+bindsym $mod+4 workspace $wp4
+bindsym $mod+5 workspace $wp5
+bindsym $mod+6 workspace $wp6
+bindsym $mod+7 workspace $wp7
+bindsym $mod+8 workspace $wp8
+bindsym $mod+9 workspace $wp9
+bindsym $mod+0 workspace $wp10
+
+# move focused container to workspace
+bindsym $mod+Shift+1 move container to workspace $wp1
+bindsym $mod+Shift+2 move container to workspace $wp2
+bindsym $mod+Shift+3 move container to workspace $wp3
+bindsym $mod+Shift+4 move container to workspace $wp4
+bindsym $mod+Shift+5 move container to workspace $wp5
+bindsym $mod+Shift+6 move container to workspace $wp6
+bindsym $mod+Shift+7 move container to workspace $wp7
+bindsym $mod+Shift+8 move container to workspace $wp8
+bindsym $mod+Shift+9 move container to workspace $wp9
+bindsym $mod+Shift+0 move container to workspace $wp10
+
+# change focus
+bindsym $mod+$left focus left
+bindsym $mod+$down focus down
+bindsym $mod+$up focus up
+bindsym $mod+$right focus right
+
+# alternatively, you can use the cursor keys:
+#bindsym $mod+Left focus left # clash with browsers back
+bindsym $mod+Down focus down
+bindsym $mod+Up focus up
+#bindsym $mod+Right focus right
+
+# move focused window
+bindsym $mod+Shift+$left move left
+bindsym $mod+Shift+$down move down
+bindsym $mod+Shift+$up move up
+bindsym $mod+Shift+$right move right
+
+# alternatively, you can use the cursor keys:
+bindsym $mod+Shift+Left move left
+bindsym $mod+Shift+Down move down
+bindsym $mod+Shift+Up move up
+bindsym $mod+Shift+Right move right
+
+bindsym $mod+x [floating] move scratchpad
+bindsym $mod+Shift+minus move scratchpad
+bindsym $mod+minus scratchpad show
+bindsym $mod+grave focus mode_toggle
+
+# split in horizontal orientation, window created after this will go in split
+bindsym $mod+c split h
+
+# split in vertical orientation
+bindsym $mod+v split v
+
+# enter fullscreen mode for the focused container
+bindsym $mod+f fullscreen
+
+# change container layout (stacked, tabbed, toggle split)
+bindsym $mod+s layout stacking
+bindsym $mod+w layout tabbed
+bindsym $mod+e layout toggle split
+
+# toggle tiling / floating
+bindsym $mod+Shift+space floating toggle
+
+# focus the parent container
+bindsym $mod+a focus parent
+
+# focus the child container
+bindsym $mod+z focus child
+
+# change focus between tiling / floating windows
+#bindsym $mod+space focus mode_toggle
+
+# Switch workspaces on a monitor with up/down
+bindsym $mod+Control+Up workspace next_on_output
+bindsym $mod+Control+Down workspace prev_on_output
+bindsym $mod+Control+$up workspace next_on_output
+bindsym $mod+Control+$down workspace prev_on_output
+# Switch focus between monitors with left/right
+bindsym $mod+Control+Left focus output left
+bindsym $mod+Control+Right focus output right
+bindsym $mod+Control+$left focus output left
+bindsym $mod+Control+$right focus output right
 
 
-### startup.conf ###
+# Composite engine
 exec --no-startup-id compton -CGb
-exec --no-startup-id volumeicon &
+# volume button
+exec --no-startup-id volumeicon
+exec --no-startup-id pasystray
+# automount fu
 exec --no-startup-id udiskie
-exec --no-startup-id clipit &
+# clipboard manager
+exec --no-startup-id clipit
+# fancy screensaver
 exec --no-startup-id xscreensaver -no-splash
+# lock after 15 minutes
 exec --no-startup-id xautolock -time 5 -notify 10 -notifier "notify-send 'locking shortly...'" -corners
-exec --no-startup-id skippy-xd --start-daemon &
-exec i3configger --daemon &
+# expose style window picker
+exec --no-startup-id skippy-xd --start-daemon
+# Wallpaper setter
 exec --no-startup-id variety
-exec --no-startup-id xrandr --output DVI-I-2 --primary
+exec --no-startup-id blueman-applet
+exec --no-startup-id xrandr --output DP1 --primary
 exec_always --no-startup-id ~/.config/polybar/launch.sh
+exec_always --no-startup-id xrdb -merge < ~/.Xresources
 exec --no-startup-id dunst
+# mate panel for menu
+exec mate-panel
+#
 exec --no-startup-id aarchup -p package-upgrade
+# default to numlock on
 exec --no-startup-id numlockx on
 exec --no-startup-id unclutter
+

@@ -2,7 +2,8 @@
 
 import requests
 
-r = requests.get('https://api.kraken.com/0/public/Ticker?pair=ETHGBP');
+r = requests.get('https://api.kraken.com/0/public/Ticker?pair=ETHEUR');
 ticker = r.json()
 
-print('%.2f' % float(ticker['result']['XETHZGBP']['c'][0]))
+#print('%.2f' % float(ticker['result']['XETHZEUR']['c'][0]))
+print('%.2f€' % float(ticker['result']['XETHZEUR']['c'][0]))

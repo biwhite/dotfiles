@@ -83,9 +83,7 @@ source $ZSH/oh-my-zsh.sh
 # Example aliases
 # alias zshconfig="mate ~/.zshrc"
 # alias ohmyzsh="mate ~/.oh-my-zsh"
-#
-export SSH_AUTH_SOCK="$XDG_RUNTIME_DIR/ssh-agent.socket"
-
+eval `keychain --eval id_rsa id_dsa`
 source ~/.zsh_aliases
 export VISUAL="vim"
 [[ $- == *i* ]] && tty

@@ -18,12 +18,14 @@
 ! Some font rendering fixings
 Xft.antialias: true
 Xft.autohint: false
-Xft.dpi: 96
+!Xft.dpi: 96
+Xft.dpi: 88
+!Xft.dpi: 163.18
 Xft.hinting: true
-Xft.hintstyle: hintslight
+Xft.hintstyle: hintfull
 Xft.lcdfilter: lcddefault
 Xft.rgba: rgb
-
+!
 Xcursor.theme: Bluecurve
-
+!
 #include ".Xresources.d/urxvt"

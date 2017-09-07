@@ -60,6 +60,7 @@ color index brightblue black ~D
 set query_command="lbdbq '%s'"
 set print_command="/usr/bin/mp -A4 -F -l -m -left 74 -right 74 | lpr -P HP-Color-LaserJet-cp3525"
 
+set mailcap_path = ~/.mutt/mailcap
 auto_view text/html
 
 macro index <F8> \
